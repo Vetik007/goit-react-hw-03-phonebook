@@ -13,6 +13,51 @@ class App extends Component {
     filter: '',
   };
 
+  // =====================================================
+  componentDidMount() {
+    // console.log('App componentDidMount');
+
+    const contacts = localStorage.getItem('contacts'); // читаем данные из локалстороджа
+    const parsedContacts = JSON.parse(contacts); // преобразуем строку в массив
+
+    // this.setState({ todos: parsedTodos }); // передаем в todos данные из локалстороджа. Если локалсторадж пустой будет ошибка т.к. в todos передастся null. Поэтому неоходима проверка
+
+    // делаем проверку - если в parsedTodos есть распаршенные данные передаем их в  todos. В противном случае if не выполнится
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  //! ===============================================
+  //? ===============================================
+  /**
+   * ! Параметры до момента обновления
+   * * prevProps - предыдущие пропсы
+   * * prevState - предыдущие стейты
+   *
+   *
+   */
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('App componentDidUpdate');
+    // console.log(prevState); //отобразит предыдущий стейт
+    // console.log(this.state); // отобразит текущий стейт(после обновления)
+
+    const nextContacts = this.state.contacts; // текущий стейт
+    const prevContacts = prevState.contacts; // предыдущий стейт
+
+    if (nextContacts !== prevContacts) {
+      // console.log('Обновилось поле contacts, записываю todos в хранилище');
+      localStorage.setItem('contacts', JSON.stringify(nextContacts));
+    }
+
+    // if (nextTodos.length > prevTodos.length && prevTodos.length !== 0) {
+    //   this.toggleModal();
+    // }
+  }
+
+  // =======================================================
+
   // Добавление нового контакта в список контактов
   addContact = contact => {
     const isInContacts = this.state.contacts.some(
@@ -64,7 +109,7 @@ class App extends Component {
 
         <h2>Contacts</h2>
         {this.state.contacts.length > 0 ? (
-         // Фильтр для отображения контактов
+          // Фильтр для отображения контактов
           <Filter value={filter} onChangeFilter={this.changeFilter} />
         ) : (
           <p>There are no contacts in the phone book!</p>
@@ -82,4 +127,3 @@ class App extends Component {
 }
 
 export default App;
-

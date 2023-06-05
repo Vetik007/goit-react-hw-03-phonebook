@@ -10,6 +10,11 @@ class ContactForm extends React.Component {
     number: '',
   };
 
+
+
+
+
+
   // Генерируем уникальные id
   nameInputId = nanoid();
   numberInputId = nanoid();

@@ -10,17 +10,31 @@ const ContactList = ({ contacts, onRemoveContact }) => (
         <p className={css.text}>{contact.name + ' : ' + contact.number}</p>
         {
           // Кнопка удаления контакта
-          <button className={css.button}
+
+          <button className={`${css.custom} ${css.btn9}`}
             type="button"
             name="delete"
             onClick={() => onRemoveContact(contact.id)}
           >
             delete
+                    
           </button>
+
+
+
+          // <button className={css.button}
+          //   type="button"
+          //   name="delete"
+          //   onClick={() => onRemoveContact(contact.id)}
+          // >
+          //   delete
+          // </button>
         }
       </li>
     ))}
   </ul>
+
+  
 );
 
 ContactList.propTypes = {
